@@ -61,15 +61,15 @@ def sample_normality(df,col_list):
         - List of columns that do not have gaussian distribution
 
     """
-    alpha = 0.05
     non_gauss=[]
+    w_stat=[]
+    # Determine if each sample of numerical feature is gaussian
+    alpha = 0.05
     for f in num_feat:
         stat,p=shapiro(df[f])
-
-        if p > alpha:
-            print('Sample distribution is Gaussian (Fail to reject Ho)')
-        else:
-            print('Sample distribution is not Gaussian (Reject Ho)')
-            non_gauss.append(df[f])
-        return stat,p
-    return non_gauss
+        if p <= alpha: # Reject Ho -- Distribution is not normal
+            non_gauss.append(f)
+            w_stat.append(stat)
+    # Dictionary of numerical features not gaussian and W-statistic        
+    norm_dict=dict(zip(non_gauss,w_stat))
+    return norm_dict
