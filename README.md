@@ -7,23 +7,33 @@ Series of python functions for conducting initial data analysis on a dataset
 ### Initial Data Analysis Report
 
 ```
-Give examples
+Input:
+ - dataframe
+
+Output:
+- Report of initial data analysis
+
 ```
 
 ### Missing Data
 
 ```
-Give examples
+Input:
+- dataframe
+
+Output:
+- Dictionary of percent of missing values per feature
 ```
 
 ### Statistical Normality Test
 
 ```
-Give examples
+Input:
+- Numerical features of dataframe
+
+Output:
+- List of features that are not Gaussian
 ```
-
-## Versioning
-
 
 ## Authors
 
