@@ -1,9 +1,14 @@
 # Initial Data Analysis
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns;sns.set()
+from scipy.stats import kurtosis
+from scipy.stats import skew
+from scipy.stats import shapiro
 import warnings
 warnings.filterwarnings("ignore")
-from scipy.stats import shapiro
+
 
 def initial_analysis(df):
     """
@@ -44,7 +49,7 @@ def numerical_features(df):
             num_feat.append(c)
     return num_feat
 
-def sample_normality(df,col_list):
+def normality(df,col_list):
     """
     Given a dataframe determines whether each numerical column is Gaussian 
 
@@ -70,6 +75,26 @@ def sample_normality(df,col_list):
         if p <= alpha: # Reject Ho -- Distribution is not normal
             non_gauss.append(f)
             w_stat.append(stat)
-    # Dictionary of numerical features not gaussian and W-statistic        
+    # Dictionary of numerical features not gaussian and W-Statistic        
     norm_dict=dict(zip(non_gauss,w_stat))
     return norm_dict
+
+def skew_kurtosis(df,norm_dict):
+    """
+    Calculates the skewness and kurtosis of columns that were 
+    identified to be non-gaussian
+    
+    Params: 
+        - df
+        - norm_dict, dictionary with keys representing non-gaussian columns
+
+    Returns:
+        - Skewness
+        - Kurtosis
+        
+    """
+    for k in list(norm_dict.keys()):
+        sk_tup=tuple((skew(df[k]),kurtosis(df[k])))
+        print(k)
+        print(sk_tup)
+
